@@ -11,8 +11,6 @@ jinja2
 pip==18.1
 requests==2.21.0
 geopandas==0.4.0
-geopy==1.18.1
-shapely==1.6.4
 pysal==1.14.4.post1
 fiona==1.7.12 
 scikit-learn==0.20.1
