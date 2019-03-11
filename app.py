@@ -6,6 +6,7 @@ from flask import Flask, render_template, request, redirect, Markup
 import numpy as np
 import pandas as pd
 import dill
+import json
 
 # Geo Packages
 import geopandas as gpd
@@ -18,37 +19,26 @@ import shapefile
 import pysal as ps
 import fiona
 
-import json
 
 # Data Visualization Packages
 # Bokeh
 import bokeh as bk
 from bokeh.io import output_notebook, show, output_file, save
 from bokeh.plotting import figure, show, output_file, save
-from bokeh.models import (ColumnDataSource as cds, Plot, DatetimeAxis, PanTool, WheelZoomTool, HoverTool,
-                          tickers, BoxAnnotation, Panel, Range1d, LabelSet, Label, NumeralTickFormatter,
-                          LogColorMapper, GeoJSONDataSource, LinearColorMapper, ColorBar,
+from bokeh.models import (PanTool, WheelZoomTool, HoverTool,
+                          Panel, Range1d, LabelSet, Label, NumeralTickFormatter,
+                          GeoJSONDataSource, LinearColorMapper, ColorBar,
                           LogTicker, BasicTicker, CategoricalColorMapper, FixedTicker, AdaptiveTicker)
-from bokeh.palettes import viridis, magma, inferno, cividis, Greens, Blues, PuRd, YlOrRd, YlOrBr, RdYlGn, RdYlGn8 as palette
+from bokeh.palettes import RdYlGn8 as palette
 from bokeh.embed import file_html, components
 from bokeh.layouts import layout, gridplot
 from bokeh.resources import INLINE, CDN
 
-# output_notebook()
-
 # Import Machine Learning Packages
 from sklearn import base
 from sklearn import metrics
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.model_selection import train_test_split, RandomizedSearchCV, GridSearchCV, ShuffleSplit
-from sklearn.pipeline import Pipeline
-from sklearn import pipeline
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import normalize
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.linear_model import Ridge, LinearRegression
-from sklearn.svm import SVR
-from sklearn.pipeline import FeatureUnion
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge
 
 # --------------------------------------------------------------
 
@@ -165,52 +155,10 @@ def obtain_clean_data():
     # Turning replica data frame into a geopandas dataframe
     replica_plot.rename({'polygons':'geometry'},inplace=True,axis=1)
     replica_geoplot = gpd.GeoDataFrame(replica_plot, geometry='geometry')
-
-    # # Chose the demographic subset of the data
-    # replica_cols = replica_final.columns.tolist()
-    #
-    # plys = replica_cols.index('polygons')
-    # cty = replica_cols.index('company_ty')
-    # locale = replica_cols.index('locale')
-    #
-    # r_base = replica_final.iloc[:,:plys]
-    # r_dems = replica_final.iloc[:,cty:locale+1]
-    #
-    # rdems = pd.concat([r_base,r_dems],axis=1)
-    # rdems[['Savings [$/yr]','Savings [% Annual Income]']] = replica_final.iloc[:,-2:]
-    #
-    # # Work with the Demographic Subset to get Mean HH Income and Total Population
-    # rdems2 = replica_final[['geoid','state_abbr','county_name','polygons','hh_med_income','pop_total']]
-    #
-    #
-    # # Choose the lidar subset of the data
-    # r_lid = replica_final.iloc[:,:cty]
-    # r_end = replica_final.iloc[:,locale+1:]
-    # rlidar = pd.concat([r_lid,r_end],axis=1)
-    #
-    # # Work with the Lidar Subset to get dev roof area and MWH gen potential
-    # rlidar2 = rlidar.copy()
-    # # Choose the Multifamily vs Single Family subset of the data
-    # devp_m2_cols = [x for x in rlidar2.columns[rlidar2.columns.str.contains('devp_m2')]]
-    # hh_cols = [x for x in rlidar2.columns[rlidar2.columns.str.contains('hh')]]
-    # mwh_cols = [x for x in rlidar2.columns[rlidar2.columns.str.contains('mwh')]]
-    #
-    # rlidar2['hh'] = rlidar2[hh_cols].sum(axis=1)
-    # rlidar2['devp_m2'] = rlidar2[devp_m2_cols].sum(axis=1)
-    # rlidar2['mwh'] = rlidar2[mwh_cols].sum(axis=1)
-    # rlidar2 = rlidar2[['hh','devp_m2','mwh','Savings [% Annual Income]']]
-    #
-    #
-    # rplot = pd.concat([rdems2,rlidar2],axis=1)
-    #
-    #
+    
     # USA Basemap File
     file = '/Users/rohithdesikan/Desktop/Data Analysis/The Data Incubator/Capstone Project/states_21basic/states.shp'
     mapdf = gpd.read_file(file)
-    #
-    # # Turning replica data frame into a geopandas dataframe
-    # rplot.rename({'polygons':'geometry'},inplace=True,axis=1)
-    # rgeo = gpd.GeoDataFrame(rplot, geometry='geometry')
 
     return mapdf, replica_geoplot
 # --------------------------------------------------------------
@@ -257,17 +205,6 @@ def create_graph(mapdf,rgeo,statef):
 
     # Make the geoJSON datasource
     geo_source = GeoJSONDataSource(geojson=rjson)
-
-
-    # Plot on Bokeh outside of a Function
-    # n=6 # Number of colors on the choropleth and legend
-
-    # Plot the Predictions from the ML Model once they are done.
-    # Plot on Bokeh outside of a Function
-
-    # Set the colormapper
-    # Greens1 = Greens[n]
-    # Greens2 = Greens1[::-1]
 
     palette.reverse()
     cmapper = LinearColorMapper(palette=palette,
