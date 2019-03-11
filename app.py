@@ -15,7 +15,6 @@ from geopy.geocoders import Nominatim
 import shapely
 from shapely.geometry import Polygon, MultiPolygon
 from shapely.ops import unary_union
-import shapefile
 import pysal as ps
 import fiona
 
