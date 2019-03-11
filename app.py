@@ -10,14 +10,8 @@ import requests
 
 # Geo Packages
 import geopandas as gpd
-import geopy as gpy
-from geopy.geocoders import Nominatim
-import shapely
-from shapely.geometry import Polygon, MultiPolygon
-from shapely.ops import unary_union
 import pysal as ps
 import fiona
-
 
 # Data Visualization Packages
 # Bokeh
