@@ -6,7 +6,6 @@ from flask import Flask, render_template, request, redirect, Markup
 import numpy as np
 import pandas as pd
 import dill
-import json
 
 # Geo Packages
 import geopandas as gpd
