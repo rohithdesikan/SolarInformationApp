@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Skeleton application demoing Heroku and Flask integration.">
+    <meta name="author" content="@gotoariel">
+    <!-- <link rel="icon" href="favicon.ico"> -->
+
+    <title>Tract Level Data for State</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel=stylesheet type=text/css href='{{ url_for('static',filename='styled.css')}}'>
+
+    <!-- <link href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.13.min.css" rel="stylesheet" type="text/css"> -->
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-left">
+          <p><a href="/">Home</a></p>
+          <form id='statenames' method='post' action='state'>
+          <p>
+            Choose your state (Note that this visualization may take some time): <br />
+          <!-- <input type="radio" name='state' value='Nevada' /> Nevada <br />
+          <input type="radio" name='state' value='Utah' /> Utah <br />
+          <input type="radio" name='state' value='Montana' /> Montana <br />
+          <input type="radio" name='state' value='Illinois' /> Illinois <br /> -->
+            <select name= state method="GET" action="/">
+                {% for state in states %}
+                <option value= "{{state}}" SELECTED>{{state}}</option>"
+                {% endfor %}
+            </select>
+          </p>
+
+          <p><input type='Submit' value='Visualize and Learn' /></p>
+
+        </div>
+      </div>
+    </div>
+    <!-- <h4>Stock Ticker Plot</h4> -->
+    <!-- <div> {{graph_num}} </div> -->
+
+    {{ the_div|safe}}
+    {{ the_script|safe}}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-x.y.z.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-x.y.z.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-tables-x.y.z.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
