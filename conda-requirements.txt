@@ -1,0 +1,16 @@
+flask
+numpy
+pandas
+bokeh
+dill
+jinja2
+pip
+json
+requests
+geopandas
+geopy
+shapely
+shapefile
+pysal
+fiona
+sklearn
