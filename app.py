@@ -10,8 +10,6 @@ import requests
 
 # Geo Packages
 import geopandas as gpd
-import pysal as ps
-import fiona
 
 # Data Visualization Packages
 # Bokeh
