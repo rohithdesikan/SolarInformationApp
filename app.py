@@ -4,37 +4,8 @@ from flask import Flask, render_template, request, redirect, Markup
 
 # Base Packages
 import numpy as np
-np.set_printoptions(threshold=np.inf)
-np.set_printoptions(suppress=True)
 import pandas as pd
-pd.options.display.max_rows = 200
-import csv
-import pandas_profiling as pdpr
-import missingno as msno
-import json
-import collections
-from collections import OrderedDict
-import heapq
-
-# File IO and System Packages
-from zipfile import ZipFile
-import os
-from IPython.core.interactiveshell import InteractiveShell
-InteractiveShell.ast_node_interactivity = "all"
 import dill
-
-# File Download from Website
-import requests, zipfile, io
-import urllib
-from bs4 import BeautifulSoup as bs
-import re
-
-# Pandas Formatting and Styling:
-pd.options.display.max_columns = 500
-pd.set_option('display.float_format',lambda x: '%.3f' % x)
-
-import warnings
-warnings.filterwarnings('ignore')
 
 # Geo Packages
 import geopandas as gpd
@@ -50,16 +21,6 @@ import fiona
 import json
 
 # Data Visualization Packages
-
-# Matplotlib and Seaborn
-import matplotlib.pyplot as plt
-from mpl_toolkits.basemap import Basemap
-from matplotlib.patches import Polygon
-# %matplotlib inline
-import seaborn as sns
-sns.set(rc={'image.cmap': 'cubehelix'})
-sns.set_context('poster')
-
 # Bokeh
 import bokeh as bk
 from bokeh.io import output_notebook, show, output_file, save
