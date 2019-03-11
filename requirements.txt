@@ -1,3 +1,2 @@
-django
-gunicorn
-django-heroku
+gunicorn==19.9.0
+requests==2.20.0
