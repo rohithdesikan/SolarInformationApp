@@ -60,7 +60,7 @@ def style(p):
 
 # --------------------------------------------------------------
 ######### Get Pickled Data
-replica_final = dill.load(open('replica_final.pkd', 'rb'))
+replica_final = pd.read_csv('replica_final.csv')
 
 # --------------------------------------------------------------
 
